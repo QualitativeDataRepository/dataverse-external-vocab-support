@@ -1,7 +1,7 @@
 console.log("ror.js..");
 var rorSelector = "span[data-cvoc-protocol='ror']";
 var rorInputSelector = "input[data-cvoc-protocol='ror']";
-var rorRetrievalUrl = "https://api.ror.org/organizations";
+var rorRetrievalUrl = "https://api.ror.org/v1/organizations";
 var rorIdStem = "https://ror.org/";
 var rorPrefix = "ror";
 //Max chars that displays well for a child field
@@ -169,8 +169,9 @@ function updateRorInputs() {
                         term = params.term;
                         if (!term) {
                             term = "";
+                        } else {
+                            term = term.replace(/([+\-&|!(){}[\]^"~*?:\\\/])/g, "\\$1") + "*";
                         }
-                        term = term.replace(/([+\-&|!(){}[\]^"~*?:\\\/])/g, "\\$1");
                         var query = {
                             query: term,
                         }
