@@ -16,7 +16,7 @@ and have them displayed as a link to the remote site defining the term:
 
 ![Display2](https://github.com/user-attachments/assets/27aab9fe-c876-4ab6-8d74-eb6cc29274c4)
 
-Or, with [additions planned for Dataverse 6.4](https://github.com/IQSS/dataverse/pull/10712), one could replace the four author related fields with selectors for [ORCID](https://orcid.org) (people) and [ROR](https://ror.org) (organizations)
+Or, with [enhancements added in Dataverse 6.4](https://github.com/IQSS/dataverse/pull/10712), one can replace the four author related fields with selectors for [ORCID](https://orcid.org) (people) and [ROR](https://ror.org) (organizations)
 
 ![Input1](https://github.com/user-attachments/assets/b0f724e1-952b-4d48-8f89-8f046d797ce8)
 
@@ -34,7 +34,7 @@ Display can also be graphical, as in displaying [Local Contexts](https://localco
 
 This repository contains scripts and example materials that demonstrate how to configure Dataverse to leverage them. They are a mixture of initial proofs-of-concept, demonstrations of alternative approaches, and some that are potentially mature enough for production use (although the latter often require later versions of Dataverse which have extensions/bug fixes for the underlying mechanism. Documentation in the /examples subdirectory provides additional details for specific scripts and configuration for specific fields.
 
-It also contains a [JSON Schema that can be used to validate configuration files](https://github.com/gdcc/dataverse-external-vocab-support/blob/main/examples/config/demo/CVocConf.schema.json).
+It also contains a [JSON Schema that can be used to validate configuration files](https://github.com/gdcc/dataverse-external-vocab-support/blob/main/examples/config/CVocConf.schema.json).
 
 ## Scripts in Production
 
@@ -89,7 +89,7 @@ node compose-cvoc-conf.js authorsOrcidAndRor depositorOrcid demo/keywordsExample
 All three scripts:
 * Accept multiple configuration file names as arguments (with or without .json extension)
 * Support relative paths (e.g., demos/authors configs/depositorOrcid)
-* Combine all objects from the input files into a single CVocConf.json array that can be used as the [:CVocConf setting](https://guides.dataverse.org/en/6.2/installation/config.html#cvocconf) in Dataverse
+* Combine all objects from the input files into a single CVocConf.json array that can be used as the [:CVocConf setting](https://guides.dataverse.org/en/latest/installation/config.html#cvocconf) in Dataverse
 * Validate the output to ensure it's valid JSON
 * Report the total number of objects included
 
