@@ -19,18 +19,10 @@
     "retrieval-filtering": {
       "@context": {
       	"termName": "https://schema.org/name",
-<<<<<<< HEAD
         "scheme": "http://www.w3.org/2004/02/skos/core#inScheme",
         "notices": {"@id":"https://localcontexts.org/notices", "@type": "@json"},
         "tk_labels": {"@id":"https://localcontexts.org/tk_labels", "@type": "@json"},
         "bc_labels": {"@id":"https://localcontexts.org/bc_labels", "@type": "@json"}
-      },
-      "termName": {
-        "pattern": "{0}",
-        "params": ["/unique_id"]
-=======
-        "scheme": "http://www.w3.org/2004/02/skos/core#inScheme"
->>>>>>> refs/remotes/QDR/main
       },
       "termName": {
         "pattern": "{0}",
