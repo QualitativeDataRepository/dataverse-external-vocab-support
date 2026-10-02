@@ -1,3 +1,15 @@
+/***********************************************************************************
+ * WARNING: These are legacy copies of scripts now hosted under the /services folder.
+ *
+ * THEY WILL NOT BE MAINTAINED AND MAY DISAPPEAR WITHOUT NOTICE.
+ *
+ * You are advised to not use them or configure to use any scripts hosted at gdcc.github.io/dataverse-external-vocab-support
+ * except for testing.
+ *
+ * The current scripts, which are being maintained and updated, are under the /services directory.
+ * To use them, follow the new local download/install instructions in the repository readme.
+ */
+
 //Common Methods - used in more than one script
 
 // Put the text in a result that matches the term in a span with class
@@ -56,5 +68,27 @@ function getValue(prefix, id) {
         return {name, altNames};
     } catch (e) {
         console.log("Problem getting value from localStorage: " + e);
+    }
+}
+
+/**
+ * Injects common CSS styles for CVOC scripts, specifically for Select2 search results.
+ */
+function injectCvocStyles() {
+    if ($('#cvoc-styles').length === 0) {
+        $('<style id="cvoc-styles">')
+            .prop('type', 'text/css')
+            .html(`
+                .cvoc-extra-info {
+                    font-size: 0.85em;
+                    color: #777;
+                    margin-left: 0px;
+                }
+                .select2-results__option--highlighted .cvoc-extra-info,
+                .select2-highlighted .cvoc-extra-info {
+                    color: #fff !important;
+                }
+            `)
+            .appendTo('head');
     }
 }
