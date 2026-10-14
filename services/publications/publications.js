@@ -248,7 +248,7 @@ function expandPublications() {
             var urlElement = $('[data-cvoc-metadata-name="publicationURL"][data-cvoc-index="' + cvocIndex + '"]');
 
             var relationType = getElementValue(relationTypeElement);
-            var allowedRelations = ['iscitedby', 'cites', 'issupplementto', 'issupplementedby', 'isreferencedby', 'references'];
+            var allowedRelations = ['is cited by', 'cites', 'is supplement to', 'is supplemented by', 'is referenced by', 'references'];
 
             if (!relationType) {
                 // Try to find it in the text nodes before the first span of this entry
@@ -382,6 +382,29 @@ function formatFirstPublicationRow() {
     var identifierTypeElement = $('[data-cvoc-metadata-name="publicationIDType"][data-cvoc-index="0"]');
     var relationType = getElementValue(relationTypeElement);
     var identifierType = getElementValue(identifierTypeElement);
+
+    if (!relationType) {
+        // Try to find the relation type in the hidden span left by expandPublications
+        // e.g., <span style="display: none;">Is Supplement To: </span>
+        // This span is a sibling of the metadata elements identified above
+        var allowedRelations = ['is cited by', 'cites', 'is supplement to', 'is supplemented by', 'is referenced by', 'references'];
+        var anchor = (identifierTypeElement.length > 0) ? identifierTypeElement :
+            (citationElement.length > 0) ? citationElement : null;
+        if (anchor) {
+            var hiddenSpan = anchor.siblings('span[style="display: none;"]').first();
+            if (hiddenSpan.length > 0) {
+                var spanText = (hiddenSpan.text() || '').trim();
+                var colonIndex = spanText.indexOf(':');
+                if (colonIndex > 0) {
+                    var potentialRelation = spanText.substring(0, colonIndex).trim();
+                    if (allowedRelations.indexOf(potentialRelation.toLowerCase()) !== -1) {
+                        relationType = potentialRelation;
+                    }
+                }
+            }
+        }
+    }
+
     if (!relationType) {
         relationType = window.publications.state.i18n.relationNotSpecified;
     }
