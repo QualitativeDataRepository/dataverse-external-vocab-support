@@ -231,6 +231,9 @@ function getPidText(identifierType, identifier) {
     return '[' + displayName + ']';
 }
 
+// Allowed publication relation types, used by both expandPublications and formatFirstPublicationRow
+var ALLOWED_RELATION_TYPES = ['is cited by', 'cites', 'is supplement to', 'is supplemented by', 'is referenced by', 'references'];
+
 function expandPublications() {
     $(window.publications.config.publicationSelector).each(function() {
         var publicationIdentifierElement = this;
@@ -248,7 +251,6 @@ function expandPublications() {
             var urlElement = $('[data-cvoc-metadata-name="publicationURL"][data-cvoc-index="' + cvocIndex + '"]');
 
             var relationType = getElementValue(relationTypeElement);
-            var allowedRelations = ['is cited by', 'cites', 'is supplement to', 'is supplemented by', 'is referenced by', 'references'];
 
             if (!relationType) {
                 // Try to find it in the text nodes before the first span of this entry
@@ -267,7 +269,7 @@ function expandPublications() {
                 var relationMatch = prefixText.match(/^\s*([^:]+):\s*$/);
                 if (relationMatch) {
                     var potentialRelation = relationMatch[1].trim();
-                    if (allowedRelations.indexOf(potentialRelation.toLowerCase()) !== -1) {
+                    if (ALLOWED_RELATION_TYPES.indexOf(potentialRelation.toLowerCase()) !== -1) {
                         relationType = potentialRelation;
                     }
                 }
@@ -387,7 +389,6 @@ function formatFirstPublicationRow() {
         // Try to find the relation type in the hidden span left by expandPublications
         // e.g., <span style="display: none;">Is Supplement To: </span>
         // This span is a sibling of the metadata elements identified above
-        var allowedRelations = ['is cited by', 'cites', 'is supplement to', 'is supplemented by', 'is referenced by', 'references'];
         var anchor = (identifierTypeElement.length > 0) ? identifierTypeElement :
             (citationElement.length > 0) ? citationElement : null;
         if (anchor) {
@@ -397,7 +398,7 @@ function formatFirstPublicationRow() {
                 var colonIndex = spanText.indexOf(':');
                 if (colonIndex > 0) {
                     var potentialRelation = spanText.substring(0, colonIndex).trim();
-                    if (allowedRelations.indexOf(potentialRelation.toLowerCase()) !== -1) {
+                    if (ALLOWED_RELATION_TYPES.indexOf(potentialRelation.toLowerCase()) !== -1) {
                         relationType = potentialRelation;
                     }
                 }
